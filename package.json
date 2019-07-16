@@ -19,6 +19,9 @@
 				"command": "extension.helloWorld",
 				"title": "Hello World"
 			}
+		],
+    "markdown.previewStyles": [
+        "./src/style.css"
 		]
 	},
 	"scripts": {
