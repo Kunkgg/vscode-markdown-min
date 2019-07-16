@@ -21,7 +21,71 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 
 	context.subscriptions.push(disposable);
+
+	return {
+		extendMarkdownIt(md: any) {
+			md.set({
+				html: true,
+				linkify: true,
+				typographer: true
+			});
+
+			// load plugins
+			md.use(require('markdown-it-sub'))
+				.use(require('markdown-it-sup'))
+				.use(require('markdown-it-footnote'))
+				.use(require('markdown-it-deflist'))
+				.use(require('markdown-it-abbr'))
+				.use(require('markdown-it-emoji'))
+				.use(require('markdown-it-imsize'))
+				.use(require('markdown-it-mark'))
+				.use(require('markdown-it-ins'))
+				.use(require('markdown-it-checkbox'));
+
+
+			// custom container div  
+			md.use(require('markdown-it-container'), 'warning', {
+				validate: function (params: any) {
+					return params.trim().match(/^warning\s*$/);
+				},
+				render: function (tokens: any, idx: any) {
+					if (tokens[idx].nesting === 1) {
+						return '<div class="warning">\n<p><i class="fas fa-exclamation-triangle pr-2"></i>Warning</p>' + '\n';
+					} else {
+						return '</div>\n';
+					}
+				}
+			});
+			md.use(require('markdown-it-container'), 'important', {
+				validate: function (params: any) {
+					return params.trim().match(/^important\s*$/);
+				},
+				render: function (tokens: any, idx: any) {
+					if (tokens[idx].nesting === 1) {
+						return '<div class="important">\n<p><i class="fas fa-exclamation-circle pr-2"></i>Important</p>' + '\n';
+					} else {
+						return '</div>\n';
+					}
+				}
+			});
+			md.use(require('markdown-it-container'), 'tip', {
+				validate: function (params: any) {
+					return params.trim().match(/^tip\s*$/);
+				},
+				render: function (tokens: any, idx: any) {
+					if (tokens[idx].nesting === 1) {
+						return '<div class="tip">\n<p><i class="far fa-lightbulb pr-2"></i>Tip</p>' + '\n';
+					} else {
+						return '</div>\n';
+					}
+				}
+			});
+
+			return md;
+			// return md.use(require('markdown-it-emoji'));
+		}
+	};
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }
