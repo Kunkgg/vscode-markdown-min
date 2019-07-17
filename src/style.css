@@ -416,3 +416,12 @@ div.tip p:first-child,
 div.tip p:first-child i {
   color: #00C851;
 }
+
+
+/**
+ * task-lists
+ */
+
+.task-list-item {
+  list-style: none;
+}

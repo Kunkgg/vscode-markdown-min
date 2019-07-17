@@ -40,6 +40,7 @@ export function activate(context: vscode.ExtensionContext) {
 				.use(require('markdown-it-imsize'))
 				.use(require('markdown-it-mark'))
 				.use(require('markdown-it-ins'))
+				.use(require('markdown-it-task-lists'))
 				.use(require('markdown-it-checkbox'));
 
 
@@ -82,7 +83,6 @@ export function activate(context: vscode.ExtensionContext) {
 			});
 
 			return md;
-			// return md.use(require('markdown-it-emoji'));
 		}
 	};
 }
