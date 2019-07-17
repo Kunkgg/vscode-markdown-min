@@ -41,6 +41,7 @@ export function activate(context: vscode.ExtensionContext) {
 				.use(require('markdown-it-mark'))
 				.use(require('markdown-it-ins'))
 				.use(require('markdown-it-task-lists'))
+				.use(require('markdown-it-kbd'))
 				.use(require('markdown-it-checkbox'));
 
 
